@@ -508,3 +508,107 @@ Each result object may contain:
 
 | Name | Data Type | Description |
 |---|---|---|
+| success | Boolean | Indicates whether the request succeed |
+| project_id | Integer | Unique project identifier |
+| project_name | String | Name of the project |
+| description | String | Description of the project |
+| status | String | Current project status, if available |
+
+### Example Usage
+
+`GET /projects/details/?project_id=10`
+
+### Example Response
+
+```json
+{
+    "success": true,
+    "project_id": 10,
+    "project_name": "Marketing Simulation",
+    "description": "A simulated workplace inbox assessment",
+    "status": "Active",
+}
+```
+
+---
+
+## 4.2 Get Project Messages
+
+**Endpoints:** `/projects/messages/`
+
+**Method:** `GET`
+
+### Inputs 
+
+| Name | Data Type | Description |
+|---|---|---|
+| project_id | Integer | Identifier of the project |
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| success | Boolean | Indicates whether the request succeeded |
+| messages | Array of Objects | Messages associated with the project and available to the requester |
+
+Each message object may contain `message_id` (Integer), `subject` (String), `sender` (String), and `body` (String).
+
+### Example Usage
+
+`GET /projects/messages/?project_id=10`
+
+### Example Response
+
+```json
+{
+    "success": true,
+    "messages": [
+        {
+            "message_id": 45,
+            "subject": "Customer Complaint",
+            "sender": "Customer",
+            "body": "I need help resolving an issue with my order."
+        }
+    ]
+}
+```
+
+---
+
+## 4.3 Get Project Assessment Information
+
+**Endpoints:** `/projects/assessment/`
+
+**Method:** `GET`
+
+### Inputs 
+
+| Name | Data Type | Description |
+|---|---|---|
+| project_id | Integer | Identifier of the project |
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| success | Boolean | Indicates whether the request succeeded |
+| assessment | Object | Assessment information available to the requester |
+
+The assessment object may contain:
+
+| Field | Data Type | Description |
+|---|---|---|
+| assessment_name | String | Name of the assessment |
+| description | String | Assessment instructions or summary |
+| total_questions | Integer | Number of questions or tasks, if applicable |
+
+### Example Usage
+
+`GET /projects/assessment/?project_id=10`
+
+### Example Response
+
+```json
+{
+    
+}
