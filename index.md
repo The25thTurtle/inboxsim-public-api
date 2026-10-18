@@ -8,7 +8,7 @@ layout: default
 
 The Inbox Sim Public API allows client applications to retrieve student projects, access simulated messages, submit assessment responses, and retrieve project information.
 
-This documentation decribes the endpoints, HTTP methods, inputs, outputs, and example requests.
+This documentation describes the endpoints, HTTP methods, inputs, outputs, and example requests.
 
 ### API Categories
 
@@ -33,9 +33,9 @@ Endpoints that access student accounts, project content, or assessment results s
 
 # 2. Student Endpoints
 
-## 2.1 Get Student Projects
+## 2.1 Get Student Profile
 
-**Endpoint:** `/students/projects/`
+**Endpoint:** `/students/profile/`
 
 **Method:** `GET`
 
@@ -50,13 +50,13 @@ Endpoints that access student accounts, project content, or assessment results s
 | Name | Data Type | Description |
 |---|---|---|
 | student_id | Integer | Unique student identifier |
-| name | String | Students's display name |
-| email | String | Students's email address |
-| success | Boolean | Indicates whether the request succeed |
+| name | String | student's display name |
+| email | String | student's email address |
+| success | Boolean | Indicates whether the request succeeded |
 
 ### Example Usage
 
-`GET /students/profile/?students_id=123`
+`GET /students/profile/?student_id=123`
 
 ### Example Response
 
@@ -87,14 +87,14 @@ Endpoints that access student accounts, project content, or assessment results s
 
 | Name | Data Type | Description |
 |---|---|---|
-| success | Boolean | Indicates whether the request succeed |
+| success | Boolean | Indicates whether the request succeeded |
 | projects | Array of Objects | Projects assigned to the student |
 
 Each project object may contain:
 
 | Field | Data Type | Description |
 |---|---|---|
-| project_id | Integer | Unique project indentifier |
+| project_id | Integer | Unique project identifier |
 | project_name | String | Name of the project |
 | description | String | Summary of the project |
 
@@ -119,58 +119,7 @@ Each project object may contain:
 
 ---
 
-## 2.3 Get Student Messages
-
-**Endpoint:** `/students/messages/`
-
-**Method:** `GET`
-
-### Inputs
-
-| Name | Data Type | Description |
-|---|---|---|
-| student_id | Integer | Identifier of the student |
-| project_id | Integer | Indentifier of the project |
-
-### Outputs
-
-| Name | Data Type | Description |
-|---|---|---|
-| success | Boolean | Indicates whether the request succeed |
-| messages | Array of Objects | Messages available to the student for the project |
-
-Each message object may contain:
-
-| Field | Data Type | Description |
-|---|---|---|
-| message_id | Integer | Unique message indentifier |
-| subject | String | Subject line of the message |
-| sender | String | Name or label of the sender |
-| body | String | Message content |
-
-### Example Usage
-
-`GET /students/message/?student_id=123&project_id=10`
-
-### Example Response
-
-```json
-{
-  "success": true,
-  "projects": [
-    {
-      "message_id": 45,
-      "subject": "Customer Complaint",
-      "sender": "Customer",
-      "body": "I need help resolving an issue with my order."
-    }
-  ]
-}
-```
-
----
-
-## 2.4 Get Message Details
+## 2.3 Get Message Details
 
 **Endpoint:** `/students/messages/details`
 
@@ -180,21 +129,20 @@ Each message object may contain:
 
 | Name | Data Type | Description |
 |---|---|---|
-| student_id | Integer | Identifier of the student |
-| message_id | Integer | Indentifier of the message |
+| message_id | Integer | Identifier of the message |
 
 ### Outputs
 
 | Name | Data Type | Description |
 |---|---|---|
-| success | Boolean | Indicates whether the request succeed |
+| success | Boolean | Indicates whether the request succeeded |
 | message | Object | Details of the requested message |
 
 The message object may contain `message_id` (Integer), `subject` (String), `sender` (String), and `body` (String).
 
 ### Example Usage
 
-`GET /students/messages/details/?student_id=123&message_id=45`
+`GET /projects/messages/details/?message_id=45`
 
 ### Example Response
 
@@ -212,7 +160,7 @@ The message object may contain `message_id` (Integer), `subject` (String), `send
 
 ---
 
-## 2.5 Submit Assessment Response
+## 2.4 Submit Assessment Response
 
 **Endpoint:** `/students/submit_response/`
 
@@ -223,7 +171,7 @@ The message object may contain `message_id` (Integer), `subject` (String), `send
 | Name | Data Type | Description |
 |---|---|---|
 | student_id | Integer | Identifier of the student submitting the response |
-| message_id | Integer | Indentifier of the message being answered |
+| message_id | Integer | Identifier of the message being answered |
 | response | String | Text of the student's response |
 
 Inputs are submitted in the request body as JSON.
@@ -232,9 +180,9 @@ Inputs are submitted in the request body as JSON.
 
 | Name | Data Type | Description |
 |---|---|---|
-| success | Boolean | Indicates whether the submission succeed |
+| success | Boolean | Indicates whether the submission succeeded |
 | result | String | Confirmation or error description |
-| response_id | Integer | Indentifier of the saved response, if successful |
+| response_id | Integer | Identifier of the saved response, if successful |
 
 ### Example Usage
 
@@ -244,9 +192,9 @@ Example request body:
 
 ```json
 {
-    "student_id": 123,
-    "message_id": 45,
-    "response": "I would contact the customer to resolve the issue."
+  "student_id": 123,
+  "message_id": 45,
+  "response": "I would contact the customer to resolve the issue."
 }
 ```
 
@@ -254,15 +202,15 @@ Example request body:
 
 ```json
 {
-    "success": true,
-    "results": "Response submitted successfully.",
-    "response_id": 501
+  "success": true,
+  "result": "Response submitted successfully.",
+  "response_id": 501
 }
 ```
 
 ---
 
-## 2.6 Get Assessment Feedback
+## 2.5 Get Assessment Feedback
 
 **Endpoint:** `/students/feedback/`
 
@@ -273,16 +221,16 @@ Example request body:
 | Name | Data Type | Description |
 |---|---|---|
 | student_id | Integer | Identifier of the student |
-| project_id | Integer | Indentifier of the project |
+| project_id | Integer | Identifier of the project |
 
 ### Outputs
 
 | Name | Data Type | Description |
 |---|---|---|
-| success | Boolean | Indicates whether the request succeed |
+| success | Boolean | Indicates whether the request succeeded |
 | feedback | Array of Objects | Feedback available to the student |
 
-Each feedback objects may contain:
+Each feedback object may contain:
 
 | Field | Data Type | Description |
 |---|---|---|
@@ -331,7 +279,7 @@ Faculty endpoints are intended for authorized faculty members. Access to student
 
 | Name | Data Type | Description |
 |---|---|---|
-| success | Boolean | Indicates whether the submission succeed |
+| success | Boolean | Indicates whether the submission succeeded |
 | faculty_id | Integer | Unique faculty identifier |
 | name | String | Faculty member's display name |
 | email | String | Faculty member's email address |
@@ -369,7 +317,7 @@ Faculty endpoints are intended for authorized faculty members. Access to student
 
 | Name | Data Type | Description |
 |---|---|---|
-| success | Boolean | Indicates whether the submission succeed |
+| success | Boolean | Indicates whether the submission succeeded |
 | projects | Array of Objects | Projects the faculty member is authorized to access |
 
 Each project object may contain `project_id` (Integer), `project_name` (String), and `description` (String).
@@ -395,7 +343,7 @@ Each project object may contain `project_id` (Integer), `project_name` (String),
 
 ---
 
-## 3.3 Get Students Assessment Results
+## 3.3 Get Student Assessment Results
 
 **Endpoints:** `/faculty/student_results/`
 
@@ -406,14 +354,14 @@ Each project object may contain `project_id` (Integer), `project_name` (String),
 | Name | Data Type | Description |
 |---|---|---|
 | faculty_id | Integer | Identifier of the faculty member |
-| project_id | Integer | Indentifier of the project |
+| project_id | Integer | Identifier of the project |
 
 ### Outputs
 
 | Name | Data Type | Description |
 |---|---|---|
-| success | Boolean | Indicates whether the submission succeed |
-| results | Array of Objects | Assessmenbt results for students in the project |
+| success | Boolean | Indicates whether the submission succeeded |
+| results | Array of Objects | Assessment results for students in the project |
 
 Each result object may contain:
 | Field | Data Type | Description |
@@ -445,9 +393,9 @@ Each result object may contain:
 
 ---
 
-## 3.4 Get Students Response Details
+## 3.4 Get Student Response Details
 
-**Endpoints:** `/faculty/response_results/`
+**Endpoints:** `/faculty/response_details/`
 
 **Method:** `GET`
 
@@ -456,13 +404,13 @@ Each result object may contain:
 | Name | Data Type | Description |
 |---|---|---|
 | faculty_id | Integer | Identifier of the faculty member |
-| response_id | Integer | Indentifier of the submitted response |
+| response_id | Integer | Identifier of the submitted response |
 
 ### Outputs
 
 | Name | Data Type | Description |
 |---|---|---|
-| success | Boolean | Indicates whether the request succeed |
+| success | Boolean | Indicates whether the request succeeded |
 | response_id | Integer | Identifier of the response |
 | student_id | Integer | Identifier of the student |
 | message_id | Integer | Identifier of the original message |
@@ -508,7 +456,7 @@ Each result object may contain:
 
 | Name | Data Type | Description |
 |---|---|---|
-| success | Boolean | Indicates whether the request succeed |
+| success | Boolean | Indicates whether the request succeeded |
 | project_id | Integer | Unique project identifier |
 | project_name | String | Name of the project |
 | description | String | Description of the project |
@@ -526,50 +474,68 @@ Each result object may contain:
     "project_id": 10,
     "project_name": "Marketing Simulation",
     "description": "A simulated workplace inbox assessment",
-    "status": "Active",
+    "status": "Active"
 }
 ```
 
 ---
 
+
 ## 4.2 Get Project Messages
 
-**Endpoints:** `/projects/messages/`
+**Endpoint:** `/projects/messages/`
 
 **Method:** `GET`
 
-### Inputs 
+Retrieves the messages available to a student within a specific project. The messages returned may depend on the student's current progress through the simulation and its branching assessments.
+
+### Inputs
 
 | Name | Data Type | Description |
 |---|---|---|
-| project_id | Integer | Identifier of the project |
+| project_id | Integer | Unique identifier of the project |
+| student_id | Integer | Unique identifier of the student |
+| current_state | String | Identifies the student's current position in the simulation |
 
 ### Outputs
 
 | Name | Data Type | Description |
 |---|---|---|
 | success | Boolean | Indicates whether the request succeeded |
-| messages | Array of Objects | Messages associated with the project and available to the requester |
+| messages | Array of Objects | Messages available at the student's current stage |
 
-Each message object may contain `message_id` (Integer), `subject` (String), `sender` (String), and `body` (String).
+Each message object may contain:
+
+| Field | Data Type | Description |
+|---|---|---|
+| message_id | Integer | Unique identifier of the message |
+| subject | String | Subject line of the message |
+| sender | String | Name or label of the sender |
+| body | String | Content of the message |
 
 ### Example Usage
 
-`GET /projects/messages/?project_id=10`
+`GET /projects/messages/?project_id=10&student_id=123&current_state=customer_complaint`
 
 ### Example Response
 
 ```json
 {
-    "success": true,
-    "messages": [
-        {
-            "message_id": 45,
-            "subject": "Customer Complaint",
-            "sender": "Customer",
-            "body": "I need help resolving an issue with my order."
-        }
-    ]
+  "success": true,
+  "messages": [
+    {
+      "message_id": 25,
+      "subject": "Customer Complaint",
+      "sender": "Customer Support",
+      "body": "A customer has reported an issue with their order."
+    },
+    {
+      "message_id": 26,
+      "subject": "Follow-Up Request",
+      "sender": "Project Manager",
+      "body": "Please review the complaint and determine the next steps."
+    }
+  ]
 }
 ```
 
@@ -626,6 +592,7 @@ The assessment object may contain:
 The API should return suitable HTTP status codes and error information. The exact response format should be confirmed by the development team.
 
 | HTTP Status | Meaning |
+|---|---|
 | 200 OK | Request completed successfully |
 | 201 Created | Resources created successfully |
 | 400 Bad Request | Request contains invalid input |
