@@ -444,3 +444,67 @@ Each result object may contain:
 ```
 
 ---
+
+## 3.4 Get Students Response Details
+
+**Endpoints:** `/faculty/response_results/`
+
+**Method:** `GET`
+
+### Inputs 
+
+| Name | Data Type | Description |
+|---|---|---|
+| faculty_id | Integer | Identifier of the faculty member |
+| response_id | Integer | Indentifier of the submitted response |
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| success | Boolean | Indicates whether the request succeed |
+| response_id | Integer | Identifier of the response |
+| student_id | Integer | Identifier of the student |
+| message_id | Integer | Identifier of the original message |
+| response | String | Student's submitted answer |
+| score | Number | Recorded score, if available |
+| feedback | String | Faculty feedback, if available |\
+
+### Example Usage
+
+`GET /faculty/response_details/?faculty_id=45&response_id=501`
+
+### Example Response
+
+```json
+{
+    "success": true,
+    "response_id": 501,
+    "student_id": 123,
+    "message_id": 45,
+    "response": "I would contact the customer to resolve the issue.",
+    "score": 85,
+    "feedback": "Good customer service approach."
+}
+```
+
+---
+
+# 4. Project Endpoints
+
+## 4.1 Get Project Details
+
+**Endpoints:** `/projects/details/`
+
+**Method:** `GET`
+
+### Inputs 
+
+| Name | Data Type | Description |
+|---|---|---|
+| project_id | Integer | Identifier of the project |
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
