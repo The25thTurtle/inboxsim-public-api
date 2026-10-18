@@ -468,7 +468,7 @@ Each result object may contain:
 | message_id | Integer | Identifier of the original message |
 | response | String | Student's submitted answer |
 | score | Number | Recorded score, if available |
-| feedback | String | Faculty feedback, if available |\
+| feedback | String | Faculty feedback, if available |
 
 ### Example Usage
 
