@@ -169,3 +169,146 @@ Each message object may contain:
 ```
 
 ---
+
+## 2.4 Get Message Details
+
+**Endpoint:** `/students/messages/details`
+
+**Method:** `GET`
+
+### Inputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| student_id | Integer | Identifier of the student |
+| message_id | Integer | Indentifier of the message |
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| success | Boolean | Indicates whether the request succeed |
+| message | Object | Details of the requested message |
+
+The message object may contain `message_id` (Integer), `subject` (String), `sender` (String), and `body` (String).
+
+### Example Usage
+
+`GET /students/messages/details/?student_id=123&message_id=45`
+
+### Example Response
+
+```json
+{
+  "success": true,
+  "message": {
+      "message_id": 45,
+      "subject": "Customer Complaint",
+      "sender": "Customer",
+      "body": "I need help resolving an issue with my order."
+    }
+}
+```
+
+---
+
+## 2.5 Submit Assessment Response
+
+**Endpoint:** `/students/submit_response/`
+
+**Method:** `POST`
+
+### Inputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| student_id | Integer | Identifier of the student submitting the response |
+| message_id | Integer | Indentifier of the message being answered |
+| response | String | Text of the student's response |
+
+Inputs are submitted in the request body as JSON.
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| success | Boolean | Indicates whether the submission succeed |
+| result | String | Confirmation or error description |
+| response_id | Integer | Indentifier of the saved response, if successful |
+
+### Example Usage
+
+`POST /students/submit_response/`
+
+Example request body: 
+
+```json
+{
+    "student_id": 123,
+    "message_id": 45,
+    "response": "I would contact the customer to resolve the issue."
+}
+```
+
+### Example Response
+
+```json
+{
+    "success": true,
+    "results": "Response submitted successfully.",
+    "response_id": 501
+}
+```
+
+---
+
+## 2.6 Get Assessment Feedback
+
+**Endpoint:** `/students/feedback/`
+
+**Method:** `GET`
+
+### Inputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| student_id | Integer | Identifier of the student |
+| project_id | Integer | Indentifier of the project |
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| success | Boolean | Indicates whether the request succeed |
+| feedback | Array of Objects | Feedback available to the student |
+
+Each feedback objects may contain:
+
+| Field | Data Type | Description |
+|---|---|---|
+| response_id | Integer | Identifier of the submitted response |
+| comments | String | Feedback text |
+| score | Number | Score, if released to the student |
+
+### Example Usage
+
+`GET /students/feedback/?student_id=123&project_id=10`
+
+### Example Response
+
+```json
+{
+    "success": true,
+    "feedback": [
+        {
+            "response_id": 501,
+            "comments": "Your response demonstrated good customer service.",
+            "score": 85
+        }
+    ]
+}
+```
+
+---
+
+
