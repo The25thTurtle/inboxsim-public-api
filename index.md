@@ -1,6 +1,11 @@
+---
+layout: default
+---
+
 # Inbox Sim - Public API Documentation
 
 Welcome to the Inbox Sim Public API Documentation.
+...
 
 ## Students
 
