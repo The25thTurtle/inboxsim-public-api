@@ -610,5 +610,35 @@ The assessment object may contain:
 
 ```json
 {
-    
+    "success": true,
+    "assessment": {
+        "assessment_name": "Marketing Inbox Assessment",
+        "description": "Respond to the simulated workplace messages.",
+        "total_questions": 10
+    }
 }
+```
+
+---
+
+# 5. General Error Handling
+
+The API should return suitable HTTP status codes and error information. The exact response format should be confirmed by the development team.
+
+| HTTP Status | Meaning |
+| 200 OK | Request completed successfully |
+| 201 Created | Resources created successfully |
+| 400 Bad Request | Request contains invalid input |
+| 401 Unauthorized | Authentication is missing or invalid |
+| 403 Forbidden | Requester is not permitted to perform the operation |
+| 404 Not Found | Requested resource does not exist |
+| 500 Internal Server Error | Unexpected server error occurred |
+
+### Example Error Response
+
+```json
+{
+    "success": false,
+    "error": "The requested project could not be found."
+}
+```
