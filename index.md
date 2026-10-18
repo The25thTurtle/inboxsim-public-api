@@ -311,4 +311,136 @@ Each feedback objects may contain:
 
 ---
 
+# 3. Faculty Endpoints
 
+Faculty endpoints are intended for authorized faculty members. Access to student information and assessment results must be restricted according to the application's permissions.
+
+## 3.1 Get Faculty Profile
+
+**Endpoints:** `/faculty/profile/`
+
+**Method:** `GET`
+
+### Inputs 
+
+| Name | Data Type | Description |
+|---|---|---|
+| faculty_id | Integer | Identifier of the faculty member |
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| success | Boolean | Indicates whether the submission succeed |
+| faculty_id | Integer | Unique faculty identifier |
+| name | String | Faculty member's display name |
+| email | String | Faculty member's email address |
+
+### Example Usage
+
+`GET /faculty/profile/?faculty_id=45`
+
+### Example Response
+
+```json
+{
+    "success": true,
+    "faculty_id": 45,
+    "name": "Taylor Johnson",
+    "email": "taylor@example.com"
+}
+```
+
+---
+
+## 3.2 Get Faculty Projects
+
+**Endpoints:** `/faculty/projects/`
+
+**Method:** `GET`
+
+### Inputs 
+
+| Name | Data Type | Description |
+|---|---|---|
+| faculty_id | Integer | Identifier of the faculty member |
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| success | Boolean | Indicates whether the submission succeed |
+| projects | Array of Objects | Projects the faculty member is authorized to access |
+
+Each project object may contain `project_id` (Integer), `project_name` (String), and `description` (String).
+
+### Example Usage
+
+`GET /faculty/projects/?faculty_id=45`
+
+### Example Response
+
+```json
+{
+    "success": true,
+    "projects": [
+        {
+            "project_id": 10,
+            "project_name": "Marketing Simulation",
+            "description": "A simulated workplace inbox assessment"
+        }
+    ]
+}
+```
+
+---
+
+## 3.3 Get Students Assessment Results
+
+**Endpoints:** `/faculty/student_results/`
+
+**Method:** `GET`
+
+### Inputs 
+
+| Name | Data Type | Description |
+|---|---|---|
+| faculty_id | Integer | Identifier of the faculty member |
+| project_id | Integer | Indentifier of the project |
+
+### Outputs
+
+| Name | Data Type | Description |
+|---|---|---|
+| success | Boolean | Indicates whether the submission succeed |
+| results | Array of Objects | Assessmenbt results for students in the project |
+
+Each result object may contain:
+| Field | Data Type | Description |
+|---|---|---|
+| student_id | Integer | Student identifier |
+| response_id | Integer | Submitted response identifier |
+| score | Number | Assessment score |
+| status | String | Submission or assessment status |
+
+### Example Usage
+
+`GET /faculty/student_results/?faculty_id=45&project_id=10`
+
+### Example Response
+
+```json
+{
+    "success": true,
+    "results": [
+        {
+            "student_id": 123,
+            "response_id": 501,
+            "score": 85,
+            "status": "Completed"
+        }
+    ]
+}
+```
+
+---
